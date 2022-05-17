@@ -1,0 +1,29 @@
+upstream backend{
+    server 127.0.0.1:5000;
+}
+
+server {
+    listen ${PORT_NGINX} default_server;
+    server_name  _;
+
+    gzip on;
+    gzip_types      text/plain application/xml image/jpeg image/jpg;
+    gzip_proxied    no-cache no-store private expired auth;
+    gzip_min_length 1000;
+
+    root /var/lib/www;
+    index index.html;
+
+    location ${BASEURL}/ {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ ${BASEURL}/(api|imgs) {
+        proxy_pass http://backend;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+
+# vim:filetype=nginx

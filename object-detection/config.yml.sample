@@ -1,0 +1,27 @@
+---
+
+cameras:
+  - name: webcam
+    # usb: 0
+    # picamera: picamera
+    # jetson: jetson
+    # video: 'video.mp4'
+    # rtsp: 'rtsp://webcamip:8554/test'
+    source: 0
+    # 90
+    # 180
+    # 270
+    rotation: 0
+
+# Possible models:
+#   ssd_detection 
+#   yolo_detection
+#   cascade 
+#   motion
+#   ssd_trt_detection (only with gpu device)
+model: ssd_detection
+
+# Capture continous interval
+beat_interval: 1
+
+# vim:filetype=yaml
